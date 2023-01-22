@@ -8,6 +8,7 @@ public class GasTank {
 	private static final int ENOUGH_GAS = 4;
 	
 	GasTank() {
+		
 	}
 	
 	boolean isEnoughGas() {
