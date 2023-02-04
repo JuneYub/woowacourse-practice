@@ -8,6 +8,6 @@ import java.util.regex.Pattern;
 import lottogame.domain.Count;
 
 public class InputView {
-
+	
   
 }
