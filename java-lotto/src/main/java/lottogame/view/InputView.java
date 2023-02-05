@@ -59,7 +59,7 @@ public class InputView {
 	}
 	
 	private static void validateInteger(String string) {
-		if(!string.char().allMatch(Character::isDigit)) {
+		if(!string.chars().allMatch(Character::isDigit)) {
 			throw new IllegalArgumentException("정수만 입력가능합니다.");
 		}
 	}
