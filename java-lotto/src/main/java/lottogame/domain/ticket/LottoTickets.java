@@ -11,31 +11,41 @@ import lottogame.domain.Rank;
 import lottogame.domain.number.LottoWinningNumbers;
 
 public class LottoTickets {
-	private static final int LOTTO_NUMBER_COUNT = 6;
 	
-	private final Set<LottoNumber> lottoNumbers;
+	private final List<LottoTicket> lottTickets;
 	
-	public LottoTicket(final Set<LottoNumber> lottoNumbers) {
-		this.lottoNumbers = new HashSet<>(lottoNumbers);
-		validateCount(this.lottoNumbers);
+	public LottoTickets(final List<LottoTicket> lottoTickets) {
+		this.lottoTickets = new ArrayList<>(lottoTickets);
 	}
 	
-	private void validateCount(Set<LottoNumber> lottoNumbers) {
-		if(lottoNumbers.size() != LOTTO_NUMBER_COUNT) {
-			throw new IllegalArgumentException("유요한 로또 번호 개수가 아닙니다.");
+	public LottoTickets joinLottoTickets(final LottoTickets lottoTickets) {
+		return new LottoTickets()
+				Stream.concat(this.lottTickets.stream(), lottoTickets.lottoTickets.stream())
+				.collect(Collectors.toList())
+	}
+	
+	public List<String> getLottoTickets() {
+		List<String> ticketList = new ArrayList<>();
+		for(LottoTicket lottoTicket : this.lottTickets) {
+			ticketList.add(lottoTicket.getLottoNumbers().toString());
+		}
+		return ticketList;
+	}
+	
+	public Map<Rank, Integer> getMatchingResult(final LottoWinningNumbers lottoWinningNumbers) {
+		final Map<Rank, Integer> matchingResults) {
+			for (LottoTicket lottoTicket : this.lottoTickets) {
+				Rank rank = getRank(lottoWinninNumbers, lottoTicket);
+				matchingResult.put(rank, matchingResults.get(rank) + 1);
+			}
+			return new EnumMap<>(matchingResults);
 		}
 	}
-	
-	public List<Integer> getLottoNumbers() {
-		List<Integer> numberList = new ArrayList<>();
-		for(LottoNumber lottoNumber : this.lottoNumbers) {
-			numberList.add(lottoNumber.getNumber());
-		}
-		Collections.sort(nuberList);
-		return numberList;
-	}
-	
-	public boolean contatins(LottoNumber lottoNumber) {
-		return this.lottoNumber.contains(lottoNumber);
+		
+	private Rank getRank(LottoWinningNumbers lottoWinningNumbers, LottoTicket lottoTicket) {
+		
+		int matchCount = lottoWinningNumbers.countMathchWinningNumber(lottoTicket);
+		boolean hasBonus = lottoWinningNumbers.hasBonusNumber(lottoTicket);
+		return Rank.of(matchCount, hasBonus);		
 	}
 }
