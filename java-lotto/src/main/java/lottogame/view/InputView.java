@@ -1,6 +1,7 @@
 package lottogame.view;
 
 import java.util.ArrayList;
+
 import java.util.List;
 import java.util.Scanner;
 import java.util.regex.Matcher;
@@ -19,7 +20,7 @@ public class InputView {
 		return Integer.parseInt(money);
 	}
 	
-	public static int inputManualTiketCount() {
+	public static int inputManualTicketCount() {
 		System.out.println("수동으로 구매할 로또 수를 입력해 주세요.");
 		String count = SCANNER.nextLine();
 		validateInteger(count);
